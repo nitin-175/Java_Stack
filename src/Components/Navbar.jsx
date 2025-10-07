@@ -150,25 +150,25 @@ function Navbar() {
     }, []);
 
     const navLinks = [
-        { name: 'Products', href: '#' },
+        { name: 'Practice Problems', href: '#' },
         {
-            name: 'Solutions',
+            name: 'JAVA',
             dropdown: {
                 links: [
-                    { name: 'For Startups', description: "Launch and scale your business.", href: '#', icon: StartupIcon },
-                    { name: 'For Enterprise', description: "Built for large-scale operations.", href: '#', icon: EnterpriseIcon },
-                    { name: 'By Industry', description: "Tailored to your specific sector.", href: '#', icon: IndustryIcon },
+                    { name: 'DSA Sheets', description: "Get the recommended sheets of top Educators.", href: '#', icon: StartupIcon },
+                    { name: 'DSA Problems', description: "Find all the DSA most asked and HOT questions here.", href: '#', icon: EnterpriseIcon },
+                    { name: 'Concept of the day', description: "Understand a new concept daily.", href: '#', icon: IndustryIcon },
                 ],
                 featured: {
-                    name: 'Platform Overview',
-                    description: 'See how Stellar can transform your business.',
+                    name: 'Visual Learning',
+                    description: 'Learn by watching funny animation videos.',
                     href: '#',
                     imageUrl: 'https://placehold.co/600x400/0a101f/ffffff?text=Stellar'
                 }
             }
         },
-        { name: 'Resources', href: '#' },
-        { name: 'Pricing', href: '#' },
+        { name: 'DSA', href: '#' },
+        { name: 'About Us', href: '#' },
     ];
 
     const headerClasses = `fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${isScrolled ? 'bg-white/80 backdrop-blur-xl border-b border-gray-200 shadow-sm' : 'bg-transparent'
@@ -188,7 +188,7 @@ function Navbar() {
                         {/* Logo */}
                         <a href="#" className={`flex items-center space-x-2.5 transition-colors duration-300 ${linkColorClass}`}>
                             <LogoIcon className="h-8 w-8" />
-                            <span className="text-2xl font-bold tracking-tight">Stellar</span>
+                            <span className="text-2xl font-bold tracking-tight">Java Stack</span>
                         </a>
 
                         {/* Right Aligned Content */}
@@ -244,10 +244,10 @@ function Navbar() {
                             <div className="flex items-center space-x-5 md:ml-6">
                                 <button onClick={() => setIsCommandMenuOpen(true)} className={`hidden md:flex items-center space-x-2 text-sm ${linkColorClass} hover:text-blue-500 transition-colors p-2 rounded-lg hover:bg-gray-500/10`}>
                                     <SearchIcon />
-                                    <span className="text-xs border rounded-md px-1.5 py-0.5 border-gray-300/50">⌘K</span>
+                                    
                                 </button>
                                 <a href="#" className={`hidden md:block text-sm font-semibold px-5 py-2.5 rounded-lg transition-all duration-300 transform shadow-sm ${isScrolled ? 'bg-blue-600 text-white hover:bg-blue-700 hover:scale-105 ring-2 ring-blue-600 ring-offset-2 ring-offset-white' : 'bg-white text-gray-800 hover:bg-gray-200 hover:scale-105'}`}>
-                                    Contact Sales
+                                    Login
                                 </a>
                                 <button
                                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
