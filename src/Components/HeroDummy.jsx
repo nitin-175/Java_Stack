@@ -1,276 +1,314 @@
-import React, {  useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
-// --- Icon Components (Mocked for single-file demo) ---
-// No icons needed for this version
+// --- Icon Component (Mocked for single-file demo) ---
+const Icon = ({ children, className = '' }) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`${className}`}>{children}</svg>;
+const Search = ({ className = '' }) => <Icon className={className}><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></Icon>;
 
-// --- Reusable Button Component ---
-const Button = ({ children, variant = 'primary', className = '' }) => {
-  const baseStyle = 'px-10 py-4 rounded-full font-bold text-xl transition-all duration-700 transform hover:scale-105 active:scale-95 relative overflow-hidden group tracking-wide shadow-xl';
-  const variants = {
-    primary: 'bg-gradient-to-r from-emerald-600 to-teal-700 text-white hover:from-emerald-700 hover:to-teal-800 hover:shadow-2xl hover:shadow-emerald-600/50 border border-emerald-500/50',
-    secondary: 'bg-gray-800 text-gray-200 hover:bg-gray-700 border border-gray-700 hover:border-gray-600 shadow-lg hover:shadow-xl hover:shadow-gray-600/30',
-  };
+// --- NEW Human Coder SVG Animation ---
+const HumanCoderAnimation = () => {
   return (
-    <a href="#" className={`${baseStyle} ${variants[variant]} ${className}`}>
-      {/* Dynamic light streak on hover - made slower */}
-      <span className="absolute inset-0 block bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-1000 transform -skew-x-12 -translate-x-full group-hover:translate-x-full"></span>
-      <span className="relative z-10 flex items-center justify-center">
-        {children}
-      </span>
-    </a>
+    <div className="w-full flex justify-center items-center h-40 mb-4 px-4">
+      <svg 
+        viewBox="0 0 100 60" 
+        className="h-full w-full" 
+        fill="none" 
+        stroke="currentColor" 
+        strokeWidth="1"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        {/* --- DEFINITIONS for Gradient Lighting --- */}
+        <defs>
+          <linearGradient id="monitor-light-glow" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style={{ stopColor: 'rgb(163 230 53)', stopOpacity: 0.8 }} />
+            <stop offset="100%" style={{ stopColor: 'rgb(100 116 139)', stopOpacity: 0.6 }} />
+          </linearGradient>
+          <linearGradient id="skin-shadow" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style={{ stopColor: 'rgb(255 240 210)', stopOpacity: 1 }} /> {/* Brighter side */}
+            <stop offset="100%" style={{ stopColor: 'rgb(255 224 189)', stopOpacity: 1 }} /> {/* Darker side */}
+          </linearGradient>
+        </defs>
+
+        {/* Chair */}
+        <path d="M 20 58 L 10 58 A 5 5 0 0 1 10 48 L 20 48 V 40 H 25 V 48 L 35 48 A 5 5 0 0 1 35 58 Z" fill="rgb(30 41 59)" stroke="rgb(100 116 139)"/>
+        <path d="M 15 40 L 15 30 L 25 30 L 25 40 Z" fill="rgb(30 41 59)" stroke="rgb(100 116 139)" />
+
+        {/* Desk */}
+        <rect x="0" y="38" width="100" height="8" rx="2" fill="rgb(30 41 59)" stroke="rgb(100 116 139)" />
+        
+        {/* Coffee Mug */}
+        <path d="M 85 40 L 95 40 A 2 2 0 0 1 97 42 L 97 44 A 2 2 0 0 1 95 46 L 85 46 A 2 2 0 0 1 83 44 L 83 42 A 2 2 0 0 1 85 40 Z" fill="rgb(17 24 39)" stroke="rgb(100 116 139)" />
+        <path d="M 97 42 L 99 42 A 1 1 0 0 1 100 43 L 100 43 A 1 1 0 0 1 99 44 L 97 44" stroke="rgb(100 116 139)" />
+        {/* Steam */}
+        <path d="M 88 38 Q 90 34 88 30" stroke="rgb(100 116 139 / 0.8)" strokeWidth="0.5" className="animate-steam" />
+        <path d="M 92 38 Q 90 34 92 30" stroke="rgb(100 116 139 / 0.8)" strokeWidth="0.5" className="animate-steam" style={{ animationDelay: '0.5s' }} />
+        
+        {/* Monitor */}
+        <rect x="35" y="15" width="30" height="15" rx="2" fill="rgb(17 24 39)" stroke="rgb(100 116 139)" />
+        <path d="M 50 30 L 50 38" stroke="rgb(100 116 139)" />
+        <path d="M 45 38 L 55 38" stroke="rgb(100 116 139)" />
+        <rect 
+          x="37" y="17" width="26" height="11" 
+          fill="rgb(163 230 53 / 0.15)"
+          stroke="rgb(163 230 53 / 0.6)" 
+          className="animate-monitor-glow"
+        />
+
+        {/* --- Person (with new animations and lighting) --- */}
+        <g className="animate-head-bob">
+          {/* Head and Hair */}
+          <circle cx="78" cy="18" r="6" fill="url(#skin-shadow)" stroke="url(#monitor-light-glow)" /> {/* Face with gradient */}
+          <path d="M 72 15 C 70 10 75 8 80 10 C 85 8 90 10 88 15 C 85 20 75 20 72 15 Z" fill="rgb(50 50 50)" stroke="rgb(163 230 53 / 0.5)" /> {/* Hair */}
+        </g>
+        
+        {/* Body */}
+        <path d="M 78 24 L 78 35 C 78 40 70 42 65 42 L 60 42" stroke="url(#monitor-light-glow)" /> {/* Torso with gradient */}
+        
+        {/* Arms (Animated) */}
+        <path d="M 78 30 Q 68 30 63 33" stroke="url(#monitor-light-glow)" className="animate-typing-arm-1" /> {/* Arm 1 */}
+        <path d="M 78 33 Q 70 34 65 37" stroke="url(#monitor-light-glow)" className="animate-typing-arm-2" /> {/* Arm 2 */}
+
+        {/* Hands (Stylized) */}
+        <circle cx="63" cy="33" r="1.5" fill="url(#skin-shadow)" stroke="url(#monitor-light-glow)" className="animate-typing-hand-1" />
+        <circle cx="65" cy="37" r="1.5" fill="url(#skin-shadow)" stroke="url(#monitor-light-glow)" className="animate-typing-hand-2" />
+
+        {/* Keyboard (Subtle) */}
+        <rect x="40" y="40" width="20" height="4" rx="1" fill="rgb(17 24 39)" stroke="rgb(100 116 139)" />
+      </svg>
+    </div>
   );
 };
+
+// --- Dummy Coder Component ---
+const DummyCoder = () => {
+  const codeString = `public class Greet {
+  public static void main(String[] args) {
+    System.out.println("Java. Perfected.");
+  }
+}`;
+  const [typedCode, setTypedCode] = useState('');
+  const [charIndex, setCharIndex] = useState(0);
+
+  useEffect(() => {
+    if (charIndex < codeString.length) {
+      const timer = setTimeout(() => {
+        setTypedCode((prev) => prev + codeString[charIndex]);
+        setCharIndex((prev) => prev + 1);
+      }, 50 + (Math.random() * 50)); // Add random delay for realistic typing
+      return () => clearTimeout(timer);
+    } else {
+      // Optional: Reset animation after a delay
+      const resetTimer = setTimeout(() => {
+         setTypedCode('');
+         setCharIndex(0);
+      }, 5000); // Wait 5s before looping
+      return () => clearTimeout(resetTimer);
+    }
+  }, [charIndex, codeString]);
+
+  return (
+    <div className="bg-gray-900 rounded-lg p-4 font-mono text-sm text-lime-300 shadow-inner border border-gray-700/50 mb-6 min-h-[120px]">
+      <pre className="whitespace-pre-wrap">
+        {typedCode}
+        <span className="animate-blink text-lime-400">|</span>
+      </pre>
+    </div>
+  );
+};
+
 
 // --- Hero Section ---
 const Hero = () => {
   const headlinePart1 = "Java.";
   const headlinePart2 = "Perfected.";
-  const subHeadlineText = "An elite, AI-driven cloud platform for demanding applications. Unmatched speed, security, and scale.";
-
-  // Effect for mouse-tracking spotlight and 3D tilt
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      const { clientX, clientY, currentTarget } = e;
-      const { offsetWidth, offsetHeight } = currentTarget;
-      
-      const xPos = (clientX / offsetWidth) - 0.5;
-      const yPos = (clientY / offsetHeight) - 0.5;
-
-      // 3D Tilt: Max 8 degrees rotation
-      const rotateY = (xPos * 16).toFixed(2);
-      const rotateX = (-yPos * 16).toFixed(2);
-      
-      // Spotlight
-      const spotlightX = (clientX / offsetWidth) * 100;
-      const spotlightY = (clientY / offsetHeight) * 100;
-
-      currentTarget.style.setProperty('--rotateX', `${rotateX}deg`);
-      currentTarget.style.setProperty('--rotateY', `${rotateY}deg`);
-      currentTarget.style.setProperty('--spotlightX', `${spotlightX}%`);
-      currentTarget.style.setProperty('--spotlightY', `${spotlightY}%`);
-    };
-
-    const section = document.getElementById('hero-section');
-    section.addEventListener('mousemove', handleMouseMove);
-
-    return () => {
-      section.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
+  const subHeadlineText = "The ultimate learning companion for developers."; // New sub-headline
+  // Old sub-headline, new prompt
 
   return (
     <section 
       id="hero-section"
-      className="py-24 md:py-48 bg-gradient-to-br from-gray-950 via-emerald-950 to-black relative overflow-hidden min-h-screen flex items-center justify-center font-serif"
-      style={{ perspective: '2000px' }} // Added for 3D effect
+      className="py-16 md:py-32 bg-black relative overflow-hidden min-h-screen flex items-center justify-center font-sans" // Reduced vertical padding
     >
-      {/* Mouse-follow spotlight */}
-      <div 
-        className="absolute inset-0 z-0 transition-opacity duration-300 pointer-events-none"
-        style={{
-          background: `radial-gradient(600px circle at var(--spotlightX) var(--spotlightY), rgba(255, 255, 255, 0.03), transparent 40%)`
-        }}
-      ></div>
-
-      {/* ULTRA-PREMIUM BACKGROUND ELEMENTS */}
-      {/* Large, drifting nebula glows - NEW COLORS & ANIMATION */}
-      <div className="absolute top-[10%] left-[5%] w-[600px] h-[600px] bg-emerald-600/30 rounded-full filter blur-[280px] opacity-40 animate-pulse-ultra animation-delay-0"></div>
-      <div className="absolute bottom-[15%] right-[8%] w-[700px] h-[700px] bg-teal-700/20 rounded-full filter blur-[320px] opacity-35 animate-pulse-ultra animation-delay-2000" style={{animationDirection: 'alternate-reverse'}}></div>
-      <div className="absolute top-[40%] left-[30%] w-[500px] h-[500px] bg-gray-500/20 rounded-full filter blur-[250px] opacity-30 animate-pulse-ultra animation-delay-4000"></div>
-
-      {/* Dynamic Star Dust Field (simulated with more, smaller divs) */}
-      {[...Array(100)].map((_, i) => ( // More particles
+      {/* --- NEW MODERN BACKGROUND --- */}
+      {/* 1. Digital Grid Lines */}
+      <div className="absolute inset-0 z-0 opacity-20" style={{
+        backgroundImage: `
+          linear-gradient(to right, rgba(60, 255, 60, 0.2) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(60, 255, 60, 0.2) 1px, transparent 1px)
+        `,
+        backgroundSize: '50px 50px',
+        animation: 'grid-pan 30s linear infinite',
+        transform: 'perspective(600px) rotateX(45deg)',
+      }}></div>
+      
+      {/* 2. "Digital Flicker" Particles */}
+      {[...Array(120)].map((_, i) => (
         <div
           key={i}
-          className="absolute rounded-full bg-white/70"
+          className="absolute w-[2px] h-[2px] bg-lime-400/80"
           style={{
-            width: `${Math.random() * 1.5 + 0.5}px`, // 0.5-2px
-            height: `${Math.random() * 1.5 + 0.5}px`,
             top: `${Math.random() * 100}%`,
             left: `${Math.random() * 100}%`,
-            animation: `sparkle-float ${Math.random() * 20 + 10}s infinite ease-in-out alternate-reverse ${Math.random() * 10}s, particle-drift ${Math.random() * 60 + 30}s linear infinite`, // Added particle-drift
-            opacity: `${Math.random() * 0.7 + 0.3}`, // 0.3-1.0
-            filter: `blur(${Math.random() * 0.8}px)`, // 0-0.8px blur
+            animation: `digital-flicker ${Math.random() * 5 + 3}s infinite steps(1, end) ${Math.random() * 3}s`,
+            opacity: 0,
+            boxShadow: '0 0 5px 1px rgba(163, 230, 53, 0.7)',
             zIndex: 0
           }}
         ></div>
       ))}
-      {[...Array(60)].map((_, i) => ( // Larger, more distant "stars"
+       {[...Array(50)].map((_, i) => (
         <div
           key={`l-${i}`}
-          className="absolute rounded-full bg-emerald-200/30"
+          className="absolute w-1 h-1 bg-gray-600/50"
           style={{
-            width: `${Math.random() * 3 + 1}px`, // 1-4px
-            height: `${Math.random() * 3 + 1}px`,
             top: `${Math.random() * 100}%`,
             left: `${Math.random() * 100}%`,
-            animation: `sparkle-float ${Math.random() * 30 + 15}s infinite ease-in-out alternate ${Math.random() * 15}s, particle-drift ${Math.random() * 80 + 40}s linear infinite`, // Added particle-drift
-            opacity: `${Math.random() * 0.5 + 0.1}`, // 0.1-0.6
-            filter: `blur(${Math.random() * 1.5 + 0.5}px)`, // 0.5-2px blur
+            animation: `digital-flicker ${Math.random() * 4 + 2}s infinite steps(1, end) ${Math.random() * 2}s`,
+            opacity: 0,
             zIndex: 0
           }}
         ></div>
       ))}
-      {/* Subtle "Electric" Lines/Streaks - NEW BACKGROUND EFFECT */}
-      {[...Array(7)].map((_, i) => (
-        <div
-          key={`line-${i}`}
-          className="absolute h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-0 animate-light-streak"
-          style={{
-            width: `${Math.random() * 100 + 50}px`,
-            top: `${Math.random() * 90 + 5}%`,
-            left: `${Math.random() * 90 + 5}%`,
-            animationDelay: `${Math.random() * 10}s`,
-            transform: `rotate(${Math.random() * 360}deg)`,
-            zIndex: 0,
-            filter: `blur(${Math.random() * 1 + 0.5}px)`
-          }}
-        ></div>
-      ))}
 
-      {/* Shooting Stars */}
-      {[...Array(5)].map((_, i) => (
-        <div
-          key={`ss-${i}`}
-          className="absolute h-[2px] w-[150px] bg-gradient-to-r from-white/70 to-transparent"
-          style={{
-            top: `${Math.random() * 100}%`,
-            left: `-150px`,
-            animation: `shooting-star ${Math.random() * 5 + 3}s linear infinite`,
-            animationDelay: `${Math.random() * 10}s`,
-            opacity: 0.8,
-            zIndex: 0,
-            transform: 'rotate(-20deg)'
-          }}
-        ></div>
-      ))}
-
-
-      {/* Subtle radial vignette - NEW COLORS */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/80 opacity-80 z-0"></div>
-
+      {/* --- NEW MODERN LAYOUT --- */}
+      
       <div 
-        className="relative z-10 max-w-7xl mx-auto text-center px-4 md:px-8 transition-transform duration-300 ease-out"
-        style={{ transform: 'rotateX(var(--rotateX, 0)) rotateY(var(--rotateY, 0))' }}
+        className="relative z-10 max-w-7xl w-full mx-auto px-4 md:px-8 grid md:grid-cols-2 gap-16 items-start"
       >
-        {/* Animated Headline - NO HOVER ANIMATIONS, PERMANENT GRADIENT */}
-        <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-wider leading-tight drop-shadow-2xl relative z-10 text-shadow-platinum">
-            <span
-              className="inline-block opacity-0 animate-text-reveal-smooth"
-              style={{ animationDelay: `0.2s` }}
+        {/* LEFT COLUMN: Headline */}
+        <div className="text-center md:text-left">
+          <h1 className="text-5xl sm:text-7xl md:text-8xl font-extrabold tracking-tighter leading-none drop-shadow-lg relative z-10 text-white">
+              <span
+                className="block text-white font-light opacity-0 animate-text-reveal-smooth" // New font weight
+                style={{ animationDelay: `0.1s` }}
+              >
+                {headlinePart1}
+              </span>
+            <span 
+              className="text-lime-400 block opacity-0 animate-text-reveal-smooth" // Changed to block
+              style={{ animationDelay: `0.3s` }}
             >
-              {headlinePart1}
+              {headlinePart2}
             </span>
-          <span 
-            className="bg-clip-text text-transparent bg-gradient-to-r from-gray-200 via-white to-gray-300 inline-block opacity-0 animate-text-reveal-smooth" 
-            style={{ animationDelay: `0.4s`, backgroundSize: '200% auto' }}
-          >
-            {' '}
-            {headlinePart2}
-          </span>
-        </h1>
+          </h1>
+          <p className="mt-8 text-md md:text-xl text-gray-400 max-w-lg mx-auto md:mx-0 relative z-10 font-light opacity-0 animate-fade-in-up" style={{ animationDelay: `0.6s` }}>
+            {subHeadlineText}
+          </p>
+        </div>
 
-        {/* Animated Sub-headline - REDUCED CONTENT */}
-        <p className="mt-8 text-md md:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed md:leading-loose relative z-10 font-normal opacity-0 animate-fade-in-up" style={{ animationDelay: `0.8s` }}>
-          {subHeadlineText}
-        </p>
+        {/* RIGHT COLUMN: Search Card */}
+        <div className="relative z-10 opacity-0 animate-fade-in-up w-full max-w-md mx-auto md:max-w-none" style={{ animationDelay: `0.9s` }}>
+          <div className="bg-gray-800/30 backdrop-blur-lg rounded-2xl border border-gray-700/50 shadow-2xl p-8">
+            
+            {/* --- NEW HUMAN CODER ANIMATION --- */}
+            <HumanCoderAnimation />
+            <DummyCoder />
 
-        {/* Animated Buttons - REDUCED CONTENT */}
-        <div className="mt-16 flex flex-col sm:flex-row justify-center gap-8 relative z-10 opacity-0 animate-fade-in-up" style={{ animationDelay: `1.2s` }}>
-          <Button variant="primary" className="flex items-center justify-center text-xl">
-            Start Now
-          </Button>
-          <Button variant="secondary" className="text-xl">
-            Book Demo
-          </Button>
+            
+            <form className="relative flex flex-col items-center" onSubmit={(e) => e.preventDefault()}>
+              <div className="relative w-full">
+                <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-gray-500 pointer-events-none" />
+                <input 
+                  type="text" 
+                  placeholder="e.g., 'Concurrency', 'Generics'"
+                  className="w-full pl-14 pr-4 py-4 rounded-xl text-lg text-gray-200 bg-gray-900/80 border border-gray-700/70 backdrop-blur-sm shadow-lg focus:outline-none focus:ring-2 focus:ring-lime-500 focus:border-lime-500 transition-all duration-300" // Modernized style
+                />
+              </div>
+              <button 
+                type="submit" 
+                className="w-full mt-4 px-8 py-4 rounded-xl font-semibold text-lg text-black bg-lime-400 hover:bg-lime-300 shadow-xl shadow-lime-500/30 hover:shadow-lime-400/50 transition-all duration-500 transform hover:scale-105 active:scale-95" // Modernized style
+              >
+                Learn
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </section>
   );
 };
 
+
 // --- Main App Component ---
 export default function HeroDummy() {
   return (
-    <div className="bg-black text-gray-100 font-serif antialiased">
+    <div className="bg-black text-gray-200 font-sans antialiased"> {/* Changed to dark theme */}
       <main>
         <Hero />
       </main>
       <style>{`
-        /* Custom text shadow for platinum effect */
-        .text-shadow-platinum {
-          text-shadow: 0 0 10px rgba(255,255,255,0.4), 0 0 20px rgba(192,192,192,0.3);
+
+        {/* --- NEW SVG ANIMATIONS --- */}
+        @keyframes typing-arm-1 {
+          0% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(1.5px) rotate(2deg); }
+          100% { transform: translateY(0px) rotate(0deg); }
+        }
+        .animate-typing-arm-1 {
+          animation: typing-arm-1 0.7s infinite ease-in-out;
+          transform-origin: 78px 30px; /* Origin near shoulder */
+        }
+        
+        @keyframes typing-arm-2 {
+          0% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-1.5px) rotate(-2deg); }
+          100% { transform: translateY(0px) rotate(0deg); }
+        }
+        .animate-typing-arm-2 {
+          animation: typing-arm-2 0.7s infinite ease-in-out 0.35s;
+          transform-origin: 78px 33px; /* Origin near shoulder */
         }
 
-        /* ULTRA-PREMIUM KEYFRAMES AND ANIMATIONS */
-
-        /* Background Glow Pulse - NEW DRIFTING EFFECT */
-        @keyframes pulse-ultra {
-          0%, 100% {
-            transform: scale(1) translate(0, 0);
-            opacity: 0.4;
-          }
-          50% {
-            transform: scale(1.1) translate(5vw, -5vh);
-            opacity: 0.6;
-          }
+        @keyframes typing-hand-1 {
+          0% { transform: translateY(0px); }
+          50% { transform: translateY(1.5px); }
+          100% { transform: translateY(0px); }
         }
-        .animate-pulse-ultra {
-          animation: pulse-ultra 20s infinite ease-in-out alternate;
+        .animate-typing-hand-1 {
+          animation: typing-hand-1 0.7s infinite ease-in-out;
         }
-
-        /* Particle Float Animation (subtle wobble/breath) */
-        @keyframes sparkle-float {
-          0% {
-            transform: translate(0, 0) scale(1);
-          }
-          25% {
-            transform: translate(0.5vw, 0.5vh) scale(1.05);
-          }
-          50% {
-            transform: translate(0, -0.5vh) scale(0.95);
-          }
-          75% {
-            transform: translate(-0.5vw, 0.5vh) scale(1.02);
-          }
-          100% {
-            transform: translate(0, 0) scale(1);
-          }
+        
+        @keyframes typing-hand-2 {
+          0% { transform: translateY(0px); }
+          50% { transform: translateY(-1.5px); }
+          100% { transform: translateY(0px); }
+        }
+        .animate-typing-hand-2 {
+          animation: typing-hand-2 0.7s infinite ease-in-out 0.35s;
         }
 
-        /* NEW: Particle Drift Animation for subtle background movement */
-        @keyframes particle-drift {
-          0% { transform: translateX(0) translateY(0); }
-          25% { transform: translateX(2vw) translateY(3vh); }
-          50% { transform: translateX(0) translateY(-2vh); }
-          75% { transform: translateX(-3vw) translateY(2vh); }
-          100% { transform: translateX(0) translateY(0); }
+        @keyframes monitor-glow {
+          0% { fill: rgb(163 230 53 / 0.15); stroke: rgb(163 230 53 / 0.6); }
+          50% { fill: rgb(163 230 53 / 0.3); stroke: rgb(163 230 53 / 0.9); } /* Brighter peak */
+          100% { fill: rgb(163 230 53 / 0.15); stroke: rgb(163 230 53 / 0.6); }
+        }
+        .animate-monitor-glow {
+          animation: monitor-glow 2.5s infinite ease-in-out;
         }
 
-        /* NEW: Light Streak Animation */
-        @keyframes light-streak {
-          0%, 100% { opacity: 0; transform: translateX(-100%) rotate(var(--random-rotation, 0deg)); }
-          20% { opacity: 0.4; transform: translateX(0%) rotate(var(--random-rotation, 0deg)); }
-          40% { opacity: 0; transform: translateX(100%) rotate(var(--random-rotation, 0deg)); }
+        @keyframes head-bob {
+          0% { transform: translateY(0) rotate(0); }
+          25% { transform: translateY(0.5px) rotate(1deg); } /* Look down-right */
+          75% { transform: translateY(0) rotate(-1deg); } /* Look up-left */
+          100% { transform: translateY(0) rotate(0); }
         }
-        .animate-light-streak {
-          animation: light-streak 8s ease-out infinite;
+        .animate-head-bob {
+          animation: head-bob 3s infinite ease-in-out;
+          transform-origin: 78px 24px; /* Base of neck */
+        }
+
+        @keyframes steam {
+          0% { transform: translateY(0) scale(1); opacity: 0.6; }
+          100% { transform: translateY(-10px) scale(1.5); opacity: 0; }
+        }
+        .animate-steam {
+          animation: steam 2s infinite linear;
+          transform-origin: 88px 38px;
         }
 
 
-        /* Shooting Star Animation */
-        @keyframes shooting-star {
-          0% {
-            transform: translateX(0) rotate(-20deg);
-            opacity: 0.8;
-          }
-          100% {
-            transform: translateX(calc(100vw + 150px)) rotate(-20deg);
-            opacity: 0;
-          }
-        }
+        /* --- TEXT REVEAL ANIMATIONS (Unchanged) --- */
 
-        /* Text Reveal Animation (word by word) - NEW SMOOTHER VERSION */
         @keyframes text-reveal-smooth {
           0% {
             opacity: 0;
@@ -282,10 +320,9 @@ export default function HeroDummy() {
           }
         }
         .animate-text-reveal-smooth {
-          animation: text-reveal-smooth 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards; /* Ease-out quint */
+          animation: text-reveal-smooth 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
         }
 
-        /* Fade In Up Animation */
         @keyframes fade-in-up {
           0% {
             opacity: 0;
@@ -299,7 +336,7 @@ export default function HeroDummy() {
           }
         }
         .animate-fade-in-up {
-          animation: fade-in-up 1s ease-out forwards;
+          animation: fade-in-up 0.9s ease-out forwards;
         }
 
         /* Animation delays for sequenced animations */
