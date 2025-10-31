@@ -13,7 +13,7 @@ useEffect(() => {
     // Hide the IntroEffect after 1 second
     const timer = setTimeout(() => {
       setShowIntro(false);
-    }, 2500);
+    }, 3500);
 
     // Cleanup timer when component unmounts
     return () => clearTimeout(timer);
