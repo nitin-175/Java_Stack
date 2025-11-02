@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 // --- Premium Intro Component ---
 // This component shows the typing tagline, fades out, and flashes.
 const PremiumIntro = () => {
-  const tagline = "Unlock Your Potential!";
+  const tagline = "Grow, Learn, Lead!";
   const [typedTagline, setTypedTagline] = useState('');
   const [typingDone, setTypingDone] = useState(false);
   const [textOpacity, setTextOpacity] = useState(1);

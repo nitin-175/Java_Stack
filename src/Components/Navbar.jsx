@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 
 // --- SVG ICONS ---
 // A new, simpler logo icon
@@ -98,29 +98,30 @@ export default function Navbar() {
 
     // --- Navigation Links Data ---
     const navLinks = [
-        { name: 'Home', href: '#' },
+        { name: "Home", href: "#" },
         {
-            name: 'Features',
+            name: "Features",
             dropdown: [
                 {
-                    name: 'Feature One',
-                    description: 'A brief description of this cool feature.',
-                    href: '#',
+                    name: "Connect your Alumni",
+                    description: "A best way to collaborate with your seniors.",
+                    href: "#",
                 },
                 {
-                    name: 'Feature Two',
-                    description: 'Explore the benefits of our second feature.',
-                    href: '#',
+                    name: "Schedule mentorship",
+                    description: "Explore and schedule meeting with a mentor",
+                    href: "#",
                 },
                 {
-                    name: 'Feature Three',
-                    description: 'See what this amazing third feature can do.',
-                    href: '#',
+                    name: "View our mentors",
+                    description: "See all the mentors avaliable.",
+                    href: "#",
                 },
             ],
         },
-        { name: 'Pricing', href: '#' },
-        { name: 'About', href: '#' },
+        { name: "Pricing", href: "#" },
+        { name: "About Us", href: "#" },
+        { name: "Contact Us", href: "#" },
     ];
 
     // --- Event Handlers ---
@@ -133,8 +134,8 @@ export default function Navbar() {
                 setOpenDropdown(null);
             }
         };
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
     // --- Dynamic Classes ---
@@ -146,7 +147,7 @@ export default function Navbar() {
     rounded-2xl
   `;
 
-    const linkColorClass = 'text-gray-200';
+    const linkColorClass = "text-gray-200";
 
     return (
         <div className="bg-gray-100 font-sans antialiased">
@@ -168,21 +169,23 @@ export default function Navbar() {
                                 <div
                                     key={link.name}
                                     className="relative"
-                                    onMouseEnter={() => link.dropdown && setOpenDropdown(link.name)}
+                                    onMouseEnter={() =>
+                                        link.dropdown && setOpenDropdown(link.name)
+                                    }
                                     onMouseLeave={() => link.dropdown && setOpenDropdown(null)}
                                 >
                                     <a
-                                        href={link.href || '#'}
+                                        href={link.href || "#"}
                                         className={`
                       group flex items-center space-x-1 px-3 py-2 rounded-md
                       text-sm font-medium transition-colors duration-300
-                      ${linkColorClass} hover:text-blue-500
+                      ${linkColorClass} hover:text-blue-200
                     `}
                                     >
                                         <span>{link.name}</span>
                                         {link.dropdown && (
                                             <ChevronDownIcon
-                                                className={`w-4 h-4 transition-transform duration-200 ${openDropdown === link.name ? 'rotate-180' : ''
+                                                className={`w-4 h-4 transition-transform duration-200 ${openDropdown === link.name ? "rotate-180" : ""
                                                     }`}
                                             />
                                         )}
@@ -193,7 +196,7 @@ export default function Navbar() {
                                         <div
                                             className="
                         absolute top-full left-1/2 -translate-x-1/2 w-80
-                        bg-gray-900 rounded-xl shadow-2xl p-2
+                        bg-green-950 rounded-xl shadow-2xl p-2
                         animate-fade-in-down ring-1 ring-white/10
                       "
                                         >
@@ -202,7 +205,7 @@ export default function Navbar() {
                                                     <a
                                                         key={item.name}
                                                         href={item.href}
-                                                        className="group p-3 rounded-lg hover:bg-gray-800 transition-colors"
+                                                        className="group p-3 rounded-lg hover:bg-stone-900 transition-colors"
                                                     >
                                                         <p className="font-semibold text-gray-100">
                                                             {item.name}
@@ -277,7 +280,7 @@ export default function Navbar() {
                             {navLinks.map((link) => (
                                 <div key={link.name}>
                                     <a
-                                        href={link.href || '#'}
+                                        href={link.href || "#"}
                                         onClick={(e) => {
                                             if (link.dropdown) {
                                                 e.preventDefault();
@@ -293,7 +296,7 @@ export default function Navbar() {
                                         {link.name}
                                         {link.dropdown && (
                                             <ChevronDownIcon
-                                                className={`w-5 h-5 transition-transform duration-200 ${openDropdown === link.name ? 'rotate-180' : ''
+                                                className={`w-5 h-5 transition-transform duration-200 ${openDropdown === link.name ? "rotate-180" : ""
                                                     }`}
                                             />
                                         )}
@@ -334,14 +337,12 @@ export default function Navbar() {
                     </div>
                 )}
             </header>
-
-            
         </div>
     );
 }
 
 // We add some keyframes for the subtle animations
-const style = document.createElement('style');
+const style = document.createElement("style");
 style.innerHTML = `
   @keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
   @keyframes fade-in-up { 
@@ -370,4 +371,3 @@ style.innerHTML = `
   }
 `;
 document.head.appendChild(style);
-
